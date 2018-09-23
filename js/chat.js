@@ -1,9 +1,17 @@
 app.controller('ChatController', ChatController);
 var monthList = ['янв', 'феб', 'мар', 'апр', 'май', 'июнь', 'июль', 'авг', 'сент', 'окт', 'ноя', 'дек'];
-function ChatController($http, $state) {
+function ChatController($http, $state, $timeout) {
     var vm = this;
     var author = $state.getCurrentPath()[1].paramValues.login;
-    getChat();
+    vm.sendRequestStatus = 0;
+
+    function getUpdates(){
+        if(!vm.sendRequestStatus){
+            getChat();
+        }
+        $timeout(getUpdates, 3000);
+    }
+    getUpdates();
     vm.send = function(){
         var data = {
             author: author,
@@ -13,6 +21,7 @@ function ChatController($http, $state) {
         $http.post('chat.php', data)
             .then(function(res){
                 console.log(res);
+                vm.newMsg = '';
             });
         console.log('chat controller', vm);
     };
@@ -44,7 +53,6 @@ function ChatController($http, $state) {
             .then(function(res){
                 if(res.status == 200){
                     vm.records = res.data;
-                    console.log(vm.records);
                     vm.sendRequestStatus = 0;
                 }
             });
