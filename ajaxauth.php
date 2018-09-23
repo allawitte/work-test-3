@@ -7,7 +7,7 @@ $password = $request->password;
 $q = mysql_query("SELECT * FROM users WHERE user_login = '$login'");		
 	$r = mysql_fetch_array($q);
 	if($password = $r['user_password']){
-		echo "ok";
+		echo $r['user_login'];
 	}
 	else {
 		echo "auth error";

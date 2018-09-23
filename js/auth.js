@@ -10,8 +10,8 @@ function AuthController($http, $state) {
         };
         $http.post('ajaxauth.php', data)
             .then(function(res){
-                if(res.data == 'ok'){
-                    $state.go('/chat');
+                if(res.data !== 'auth error'){
+                    $state.go('/chat', {'login': res.data});
                 }
             });
     }

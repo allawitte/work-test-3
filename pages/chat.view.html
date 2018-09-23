@@ -1,1 +1,10 @@
 <h2>Chat</h2>
+<div class="chat-frame">
+    <textarea class="chat-input" contenteditable="true"
+              ng-enter="vm.send()"
+              ng-model="vm.newMsg">
+
+    </textarea>
+    <button  ng-click="vm.send()">send</button>
+
+</div>

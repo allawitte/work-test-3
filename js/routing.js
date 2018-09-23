@@ -18,10 +18,13 @@ function config($stateProvider, $urlRouterProvider) {
         })
 
         .state('/chat', {
-            url: '/chat',
+            url: '/chat/:login',
             templateUrl: base + 'pages/chat.view.html',
             controller: 'ChatController',
-            controllerAs: 'vm'
+            controllerAs: 'vm',
+            params: {
+                obj: null
+            }
         });
 
 
