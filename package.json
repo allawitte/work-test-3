@@ -1,0 +1,29 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "work test #3 with chat",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/allawitte/work-test-3.git"
+  },
+  "keywords": [
+    "angular",
+    "ajax",
+    "php",
+    "chat"
+  ],
+  "author": "Alla Klimova",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/allawitte/work-test-3/issues"
+  },
+  "homepage": "https://github.com/allawitte/work-test-3#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.1"
+  }
+}
