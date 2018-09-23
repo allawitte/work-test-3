@@ -1,5 +1,14 @@
 <h2>Chat</h2>
 <div class="chat-frame container-sm">
+    <div class="list-group">
+        <div class="list-group-item list-group-item-action flex-column align-items-start active" ng-repeat="record in vm.records">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{record.author}}</h5>
+                <small>{{vm.parseTime(record.time)}}</small>
+            </div>
+            <p class="mb-1">{{record.message}}</p>
+        </div>
+    </div>
     <form>
         <div class="form-group">
             <label>Type here</label>
