@@ -1,7 +1,9 @@
-<h2>Chat</h2>
+<h2>Чат</h2>
 <div class="chat-frame container-sm">
     <div class="list-group">
-        <div class="list-group-item list-group-item-action flex-column align-items-start active" ng-repeat="record in vm.records">
+        <div class="list-group-item list-group-item-action flex-column align-items-start"
+             ng-class="vm.messageAuthor(record.author)"
+             ng-repeat="record in vm.records">
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">{{record.author}}</h5>
                 <small>{{vm.parseTime(record.time)}}</small>
@@ -11,10 +13,10 @@
     </div>
     <form>
         <div class="form-group">
-            <label>Type here</label>
+            <label><span class="badge badge-pill badge-primary">{{vm.author}}</span>&nbsp;&nbsp;пишите здесь...</label>
             <textarea class="form-control" ng-enter="vm.send()"
                       ng-model="vm.newMsg" rows="4"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary" ng-click="vm.send()">Send</button>
+        <button type="submit" class="btn btn-primary" ng-click="vm.send()">отправить</button>
     </form>
 </div>

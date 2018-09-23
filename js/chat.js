@@ -1,8 +1,8 @@
 app.controller('ChatController', ChatController);
 var monthList = ['янв', 'феб', 'мар', 'апр', 'май', 'июнь', 'июль', 'авг', 'сент', 'окт', 'ноя', 'дек'];
-function ChatController($http, $state, $timeout) {
+function ChatController($http, $state, $timeout, RequestService) {
     var vm = this;
-    var author = $state.getCurrentPath()[1].paramValues.login;
+    vm.author = $state.getCurrentPath()[1].paramValues.login;
     vm.sendRequestStatus = 0;
 
     function getUpdates(){
@@ -14,16 +14,15 @@ function ChatController($http, $state, $timeout) {
     getUpdates();
     vm.send = function(){
         var data = {
-            author: author,
+            author: vm.author,
             message: vm.newMsg,
             time: new Date().getTime()
         };
-        $http.post('chat.php', data)
+        RequestService.setChat(data)
             .then(function(res){
                 console.log(res);
                 vm.newMsg = '';
-            });
-        console.log('chat controller', vm);
+            })
     };
     vm.parseTime = function(utc){
         var date = new Date(utc-0);
@@ -36,6 +35,13 @@ function ChatController($http, $state, $timeout) {
             return 'Сегодня  ' + hour + ':' + minutes;
         }
         return day + ' ' + month + ', ' + hour + ':' +minutes;
+    };
+
+    vm.messageAuthor = function(name){
+        if(name == vm.author){
+            return 'bg-light'
+        }
+        return 'bg-info';
     }
 
     function isToday(utc){
@@ -49,13 +55,11 @@ function ChatController($http, $state, $timeout) {
 
     function getChat(){
         vm.sendRequestStatus = 1;
-        $http.get('chat_get.php')
-            .then(function(res){
-                if(res.status == 200){
-                    vm.records = res.data;
-                    vm.sendRequestStatus = 0;
-                }
-            });
+       RequestService.getChat()
+           .then(function(res){
+           vm.records = res;
+           vm.sendRequestStatus = 0;
+       });
     }
 
 }

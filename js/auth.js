@@ -1,5 +1,5 @@
 app.controller('AuthController', AuthController);
-function AuthController($http, $state) {
+function AuthController($http, $state, RequestService) {
     var vm = this;
     vm.submit = function(){
         console.log('submit');
@@ -8,12 +8,11 @@ function AuthController($http, $state) {
             'login': vm.login,
             'password': vm.password
         };
-        $http.post('ajaxauth.php', data)
+        RequestService.auth(data)
             .then(function(res){
-                if(res.data !== 'auth error'){
-                    $state.go('/chat', {'login': res.data});
-                }
+                $state.go('/chat', {'login': res});
             });
+
     }
 
 }
