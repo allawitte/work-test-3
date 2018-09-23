@@ -2,8 +2,8 @@
 include("db.php");
 $postdata = file_get_contents("php://input");
 $request = json_decode($postdata);
-$author = $request->author;
-$message = $request->message;
+$author = strip_tags($request->author);
+$message = strip_tags($request->message);
 $time = $request->time;
 $q = mysql_query("INSERT INTO chats (author, message, time) VALUES ('$author', '$message', '$time')");
 if ($q == TRUE) {
